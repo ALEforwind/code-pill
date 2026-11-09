@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=代码贴
+Name[en]=CodePill
+Comment=登录后自动显示悬浮球
+Comment[en]=Show the floating CodePill button after login
+Exec=codepill
+Icon=codepill
+Terminal=false
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=2
+NoDisplay=false

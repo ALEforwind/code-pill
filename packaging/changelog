@@ -1,0 +1,33 @@
+codepill (1.0.3) noble; urgency=medium
+
+  * 许可证由 Apache-2.0 改为 MIT。
+
+ -- Jack <wangzhenghao0410@163.com>  Mon, 09 Nov 2026 11:03:00 +0800
+
+codepill (1.0.2) noble; urgency=medium
+
+  * 修复：面板四周出现一圈淡淡的方形黑边。
+    原因是阴影被 18px 的窗口边距裁断，现在改为在边距内自然淡出的柔和阴影。
+  * 阴影改由程序绘制，深色 / 浅色主题分别使用合适的强度。
+
+ -- Jack <wangzhenghao0410@163.com>  Fri, 06 Nov 2026 16:35:00 +0800
+
+codepill (1.0.1) noble; urgency=medium
+
+  * 修复：设置页里除「深色模式」外的项目点击没有反应。
+  * 设置项现在整行可点：点文字和点开关效果一样。
+  * 提示条不显示时不再拦截鼠标事件；导入 / 导出对话框不再被置顶面板遮挡。
+  * 去掉窗口输入区域限制，避免个别窗口管理器 / HiDPI 缩放下点不到控件。
+
+ -- Jack <wangzhenghao0410@163.com>  Fri, 06 Nov 2026 16:10:00 +0800
+
+codepill (1.0.0) noble; urgency=medium
+
+  * 首个版本。
+  * 悬浮胶囊：单击展开，拖动可移动，位置自动记忆。
+  * 片段列表：单击条目一键复制，支持搜索、标签过滤、置顶。
+  * 就地编辑：新建 / 编辑 / 删除（可撤销），可从剪贴板粘贴。
+  * 设置：深色 / 浅色主题、复制后自动收起、开机自启。
+  * 数据导入导出，只保存在 ~/.config/codepill/snippets.json。
+
+ -- Jack <wangzhenghao0410@163.com>  Fri, 06 Nov 2026 15:33:00 +0800

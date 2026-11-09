@@ -1,0 +1,23 @@
+Package: codepill
+Version: __VERSION__
+Section: utils
+Priority: optional
+Architecture: all
+Depends: python3 (>= 3.10), python3-gi, gir1.2-gtk-3.0, python3-gi-cairo, python3-cairo, libgtk-3-0t64 | libgtk-3-0, librsvg2-common
+Recommends: xdg-utils
+Installed-Size: __SIZE__
+Maintainer: Jack <wangzhenghao0410@163.com>
+Homepage: https://github.com/ALEforwind/code-pill
+Description: floating desktop widget for snippets and command lines
+ CodePill puts a small always-on-top pill in the corner of your desktop.
+ Click it to browse the code snippets and shell commands you saved, then
+ click any item to copy it to the clipboard in one step. Snippets are
+ stored locally in ~/.config/codepill/snippets.json, support tags, search,
+ pinning, import and export, and can be edited right inside the panel.
+ .
+ The widget is frameless, translucent and remembers its position. Under
+ GNOME Wayland it runs through XWayland so that it can stay on top.
+ .
+ 代码贴：悬浮在桌面角落的小胶囊，点开后即可看到保存的代码 / 命令行，
+ 单击任意条目一键复制；支持搜索、标签、置顶、导入导出和就地编辑，
+ 数据只保存在本机。

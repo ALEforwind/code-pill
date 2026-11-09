@@ -1,0 +1,28 @@
+#!/bin/sh
+# 代码贴 CodePill —— 悬浮在桌面的代码 / 命令行速取工具
+#
+# 说明：GNOME 的 Wayland 会话不允许客户端自己定位窗口、也不支持「置顶」，
+# 因此默认让 GTK 走 XWayland（X11），这样悬浮球才能真正固定在桌面角落。
+# 如需原生 Wayland 运行：CODEPILL_BACKEND=wayland codepill
+
+PYTHONPATH="/usr/lib/codepill${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH
+
+force_x11=""
+if [ -z "${CODEPILL_BACKEND:-}" ] && [ -n "${DISPLAY:-}" ]; then
+    case "${XDG_SESSION_TYPE:-}:${WAYLAND_DISPLAY:-}" in
+        *wayland*:*) force_x11="1" ;;
+    esac
+fi
+
+if [ -n "$force_x11" ]; then
+    GDK_BACKEND=x11 /usr/bin/python3 -m codepill "$@"
+    status=$?
+    # XWayland 不可用时退回原生后端再试一次
+    if [ "$status" -ne 0 ]; then
+        exec /usr/bin/python3 -m codepill "$@"
+    fi
+    exit 0
+fi
+
+exec /usr/bin/python3 -m codepill "$@"

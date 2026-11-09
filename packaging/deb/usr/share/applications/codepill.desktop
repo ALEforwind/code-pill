@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=代码贴
+Name[en]=CodePill
+GenericName=代码片段速取
+GenericName[en]=Snippet Launcher
+Comment=悬浮在桌面的代码 / 命令行速取工具，单击即可复制
+Comment[en]=A floating desktop widget for copying saved snippets and commands
+Exec=codepill
+Icon=codepill
+Terminal=false
+Categories=Utility;
+Keywords=code;snippet;clipboard;command;shell;代码;片段;命令;复制;剪贴板;
+StartupNotify=false
+StartupWMClass=CodePill

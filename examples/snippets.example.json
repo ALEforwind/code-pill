@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "exported_at": "2026-11-06 15:33:00",
+  "snippets": [
+    {
+      "id": "example0001",
+      "title": "更新系统",
+      "content": "sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y",
+      "tags": ["系统", "apt"],
+      "pinned": true,
+      "created": 1762400000,
+      "used": 0,
+      "uses": 0
+    },
+    {
+      "id": "example0002",
+      "title": "查看占用端口的进程",
+      "content": "ss -tlnp | grep -E ':(8080|3000|5173)'\nlsof -i :8080",
+      "tags": ["系统", "网络"],
+      "pinned": false,
+      "created": 1762400001,
+      "used": 0,
+      "uses": 0
+    },
+    {
+      "id": "example0003",
+      "title": "Git 撤销最近一次提交（保留改动）",
+      "content": "git reset --soft HEAD~1",
+      "tags": ["git"],
+      "pinned": false,
+      "created": 1762400002,
+      "used": 0,
+      "uses": 0
+    }
+  ]
+}
