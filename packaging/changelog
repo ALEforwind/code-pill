@@ -1,3 +1,11 @@
+codepill (1.0.4) noble; urgency=medium
+
+  * 恢复窗口输入区域：鼠标只在可见卡片范围内响应，四周透明边距上的点击和悬停
+    会直接落到下层窗口，不再挡住桌面。
+  * 输入区域按卡片圆角计算，并在切换页面、展开/收起后自动更新。
+
+ -- Jack <wangzhenghao0410@163.com>  Mon, 09 Nov 2026 11:35:00 +0800
+
 codepill (1.0.3) noble; urgency=medium
 
   * 许可证由 Apache-2.0 改为 MIT。

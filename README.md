@@ -29,8 +29,8 @@
 ```bash
 git clone https://github.com/ALEforwind/code-pill.git
 cd code-pill
-./build.sh                       # 生成 dist/codepill_1.0.3_all.deb
-sudo apt install ./dist/codepill_1.0.3_all.deb
+./build.sh                       # 生成 dist/codepill_1.0.4_all.deb
+sudo apt install ./dist/codepill_1.0.4_all.deb
 ```
 
 如果系统提示缺少依赖，执行 `sudo apt --fix-broken install` 即可。
@@ -124,6 +124,7 @@ dist/                    打包产物（未纳入版本管理）
 
 ## 更新日志
 
+- **1.0.4** — 鼠标响应区域收敛到可见卡片：四周透明边距的点击会穿透到下层窗口。
 - **1.0.3** — 许可证改为 MIT。
 - **1.0.2** — 修复面板四周出现一圈方形黑边：阴影改由程序绘制，在窗口边距内自然淡出。
 - **1.0.1** — 修复设置页除「深色模式」外点击无响应；设置项整行可点；提示条不再拦截鼠标；导入 / 导出对话框不再被置顶面板遮挡。

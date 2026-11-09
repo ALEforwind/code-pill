@@ -1265,7 +1265,14 @@ class PillWindow(Gtk.Window):
 
         self.add(self.ui)
         self._drag_origin = (0, 0)
+        self._shape_source = 0
+        self._shape_retries = 0
         self._load_geometry()
+
+        # 让窗口的鼠标响应区域和可见卡片保持一致，透明边距里点击直接穿透到桌面
+        self.connect("realize", lambda *_: self._schedule_input_shape())
+        self.connect("map-event", lambda *_: self._schedule_input_shape())
+        self.connect("size-allocate", lambda *_: self._schedule_input_shape())
 
     # -- 几何 -----------------------------------------------------------
 
@@ -1306,6 +1313,7 @@ class PillWindow(Gtk.Window):
         self.resize(win_w, win_h)
         self.move(x, y)
         self._window_origin = (x, y)
+        self._schedule_input_shape()
         GLib.timeout_add(150, self._check_size, win_w, win_h)
 
     def _check_size(self, want_w: int, want_h: int):
@@ -1315,6 +1323,56 @@ class PillWindow(Gtk.Window):
             self.set_resizable(True)
             self.resize(want_w, want_h)
         return False
+
+    # -- 鼠标可交互区域 -------------------------------------------------
+
+    def _schedule_input_shape(self):
+        if self._shape_source:
+            return
+        self._shape_source = GLib.idle_add(self._apply_input_shape)
+
+    def _apply_input_shape(self):
+        self._shape_source = 0
+        win = self.get_window()
+        if win is None or not win.is_viewable():
+            return False
+        width, height = getattr(self, "_size", CARD_SIZES["pill"])
+        win_w, win_h = self.get_size()
+        if abs(win_w - (width + PAD * 2)) > 2 or abs(win_h - (height + PAD * 2)) > 2:
+            # 窗口尺寸还没跟上（异步 resize），稍后重试，避免用旧尺寸设错区域
+            if self._shape_retries < 20:
+                self._shape_retries += 1
+                self._shape_source = GLib.timeout_add(40, self._apply_input_shape)
+            return False
+        self._shape_retries = 0
+        try:
+            win.input_shape_combine_region(self._card_input_region(width, height), 0, 0)
+        except Exception:
+            pass
+        return False
+
+    def _card_input_region(self, width: int, height: int):
+        """可见卡片（含圆角）的 cairo.Region，用于限制鼠标响应范围。"""
+        radius = height / 2.0 if self.ui.mode == "pill" else 18.0
+        radius = max(0.0, min(radius, width / 2.0, height / 2.0))
+        x0 = float(PAD)
+        y0 = float(PAD)
+        region = cairo.Region(
+            cairo.RectangleInt(int(round(x0)), int(round(y0 + radius)),
+                               int(round(width)), int(round(height - radius * 2)))
+        )
+        for i in range(int(round(radius))):
+            dy = radius - (i + 0.5)
+            inset = radius - math.sqrt(max(0.0, radius * radius - dy * dy))
+            left = int(round(x0 + inset))
+            row_w = int(round(width - inset * 2))
+            if row_w <= 0:
+                continue
+            top = int(round(y0)) + i
+            bottom = int(round(y0 + height)) - 1 - i
+            region.union(cairo.Region(cairo.RectangleInt(left, top, row_w, 1)))
+            region.union(cairo.Region(cairo.RectangleInt(left, bottom, row_w, 1)))
+        return region
 
     def _save_anchor(self):
         x, y = self.get_position()
